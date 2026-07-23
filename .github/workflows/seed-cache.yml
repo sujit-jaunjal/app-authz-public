@@ -1,0 +1,14 @@
+name: seed-cache
+on: workflow_dispatch
+permissions:
+  contents: read
+  actions: write
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "PUBLIC_CACHE_SECRET_$(openssl rand -hex 16)" > secret-cache.txt
+      - uses: actions/cache/save@v4
+        with:
+          path: secret-cache.txt
+          key: sibling-idor-key-UNIQUE-v2
